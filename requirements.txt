@@ -1,0 +1,4 @@
+requests==2.31.0
+pylint==2.17.4
+black==21.12b0
+ratelimit==2.2.1
