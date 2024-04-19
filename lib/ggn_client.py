@@ -57,7 +57,7 @@ class GGNClient:
         return f"{base}&request={action}&{extra_args}"
 
     @sleep_and_retry
-    @limits(calls=5, period=timedelta(seconds=10).total_seconds())
+    @limits(calls=1, period=timedelta(seconds=2).total_seconds())
     def _do_request(self, action: str, args: Dict[str, str] = None, override_url: str = None, dry: bool = False):
         endpoint = self._action_url(
             action=action,
