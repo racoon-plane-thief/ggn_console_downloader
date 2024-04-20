@@ -1,4 +1,5 @@
 import os
+import urllib
 
 from lib.ggn_client import GGNClient, GGNClientException
 import argparse
@@ -25,7 +26,7 @@ client = GGNClient(token)
 torrent_data = {}
 
 # add consoles you wish to obtain here
-console_list = ['Commodore 64']
+console_list = ['Atari 2600']
 
 print(f"searching for torrents in {console_list}")
 
@@ -80,10 +81,14 @@ for console in console_list:
         print("Found {} torrents so far next page is {}.".format(len(torrent_data), page_number))
 
 print(f"Found {len(torrent_data)} torrents.")
+file_translator = str.maketrans({"[": "_", "\\": "_", "/": "-", "\"": "_", "*": "_", "?": "_",
+                                 "<": "_", ">": "_", "|": "_", "]": "_", })
+
 for (group_id, torrent) in torrent_data.items():
     try:
-        client.download_torrent(torrent["torrent_id"], dry=args.dry,
-                                write_location=f"{args.write_location}{torrent['release_title']}.torrent")
+        filename = torrent['release_title'].translate(file_translator)
+        client.download_torrent(480055, dry=args.dry,
+                                write_location=f"{args.write_location}{filename}.torrent")
     except GGNClientException as e:
         print(f"Error downloading torrent {torrent['torrent_id']}: {e}")
 
