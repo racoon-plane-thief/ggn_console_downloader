@@ -54,7 +54,9 @@ class GGNClient:
         extra_args = "&{}".format(
             '&'.join([f"{key}={value}" for key, value in args.items() if value is not None]),
         ) if args is not None and len(args) > 0 else ""
-        return f"{base}&request={action}&{extra_args}"
+
+        action_kind = "request" if action != "download" else "action"
+        return f"{base}&{action_kind}={action}{extra_args}"
 
     @sleep_and_retry
     @limits(calls=1, period=timedelta(seconds=2).total_seconds())
