@@ -81,7 +81,7 @@ for console in console_list:
 
 print(f"Found {len(torrent_data)} torrents.")
 file_translator = str.maketrans({"[": "_", "\\": "_", "/": "-", "\"": "_", "*": "_", "?": "_",
-                                 "<": "_", ">": "_", "|": "_", "]": "_", })
+                                 "<": "_", ">": "_", "|": "_", "]": "_", ":": "_"})
 
 for (group_id, torrent) in torrent_data.items():
     try:
