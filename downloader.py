@@ -60,7 +60,7 @@ for console in console_list:
                     continue
                 # Skip already snatched torrents
                 if data["IsSnatched"]:
-                    print(f"group already snatched ({data["ReleaseTitle"]}), skipping.")
+                    print(f"group already snatched ({data['ReleaseTitle']}), skipping.")
                     if data["GroupID"] in torrent_data:
                         torrent_data.pop(data["GroupID"], None)
                     break
@@ -82,9 +82,9 @@ for console in console_list:
 print(f"Found {len(torrent_data)} torrents.")
 for (group_id, torrent) in torrent_data.items():
     try:
-        client.download_torrent(torrent["torrent_id"], dry=True,
-                                write_location=f"{args.write_location}{torrent["release_title"]}.torrent")
+        client.download_torrent(torrent["torrent_id"], dry=args.dry,
+                                write_location=f"{args.write_location}{torrent['release_title']}.torrent")
     except GGNClientException as e:
-        print(f"Error downloading torrent {torrent["torrent_id"]}: {e}")
+        print(f"Error downloading torrent {torrent['torrent_id']}: {e}")
 
 print("Download complete.")
