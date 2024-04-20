@@ -1,5 +1,4 @@
 import os
-import urllib
 
 from lib.ggn_client import GGNClient, GGNClientException
 import argparse
@@ -87,7 +86,7 @@ file_translator = str.maketrans({"[": "_", "\\": "_", "/": "-", "\"": "_", "*": 
 for (group_id, torrent) in torrent_data.items():
     try:
         filename = torrent['release_title'].translate(file_translator)
-        client.download_torrent(480055, dry=args.dry,
+        client.download_torrent(torrent["torrent_id"], dry=args.dry,
                                 write_location=f"{args.write_location}{filename}.torrent")
     except GGNClientException as e:
         print(f"Error downloading torrent {torrent['torrent_id']}: {e}")
