@@ -80,14 +80,11 @@ for console in console_list:
         print("Found {} torrents so far next page is {}.".format(len(torrent_data), page_number))
 
 print(f"Found {len(torrent_data)} torrents.")
-file_translator = str.maketrans({"[": "_", "\\": "_", "/": "-", "\"": "_", "*": "_", "?": "_",
-                                 "<": "_", ">": "_", "|": "_", "]": "_", ":": "_"})
 
 for (group_id, torrent) in torrent_data.items():
     try:
-        filename = torrent['release_title'].translate(file_translator)
         client.download_torrent(torrent["torrent_id"], dry=args.dry,
-                                write_location=f"{args.write_location}{filename}.torrent")
+                                write_location=f"{args.write_location}{group_id}.torrent")
     except GGNClientException as e:
         print(f"Error downloading torrent {torrent['torrent_id']}: {e}")
 
